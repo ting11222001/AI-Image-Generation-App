@@ -84,14 +84,14 @@ const CreatePost = (props: Props) => {
               )}
             </div>
 
-            <div className='mt-5 flex gap-5'>
-              <button type="button" onClick={generateImg} className='text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
+            <div className='mt-2 flex gap-5'>
+              <button type="button" onClick={generateImg} className='text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2 text-center'>
                 {generatingImg ? 'Generating...' : 'Generate'}
               </button>
             </div>
 
-            <div className="mt-10">
-              <p className="mt-2 text-gray-300 text-[14px]">Once you have created the image you want, you can share it with others in the community.</p>
+            <div className="mt-2">
+              <p className="text-gray-300 text-[14px]">Once you have created the image you want, you can share it with others in the community.</p>
               <button
                 type="submit"
                 className="mt-3 text-white bg-indigo-500 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
