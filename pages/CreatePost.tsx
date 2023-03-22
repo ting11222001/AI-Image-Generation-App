@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
-import { preview } from '../public/preview.png';
+import preview from '../public/preview.png';
 import { getRandomPrompt } from '../utils';
 import FormField from "@/components/FormField";
 import Loader from "@/components/Loader";
+import Image from "next/image";
 
 type Props = {}
 
@@ -50,7 +51,32 @@ const CreatePost = (props: Props) => {
               handleSurpriseMe={handleSurpriseMe}
             />
 
-            <div></div>
+            <div className='relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+            focus:ring-blue-500 foxus:border-blue-500 w-64 p-3h-64 flex justify-center items-center'>
+              {form.photo ? (
+                <Image
+                  className="w-full h-full object-contain"
+                  src={form.photo}
+                  alt="photo"
+                  width={50}
+                  height={50}
+                />
+              ) : (
+                <Image
+                  className="w-9/12 h-9/12 object-contain opacity-40"
+                  src={preview}
+                  alt="preview"
+                  width={50}
+                  height={50}
+                />
+              )}
+
+              {generatingImg && (
+                <div className='absolute inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg'>
+                  <Loader />
+                </div>
+              )}
+            </div>
           </div>
         </form>
       </div>
