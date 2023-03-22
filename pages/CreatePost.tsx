@@ -20,14 +20,15 @@ const CreatePost = (props: Props) => {
   const handleSubmit = () => { }
   const handleChange = () => { }
   const handleSurpriseMe = () => { }
+  const generateImg = () => { }
 
   return (
     <>
       <Header />
       <div className='max-w-7xl mx-auto sm:p-8 px-4 py-8 w-full'>
         <div>
-          <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
-          <p className="mt-2 text-[#666e75] text-[14px] max-w-[500px]">Create imaginative and visually stunning images generated through DALL-E AI and share them with the community</p>
+          <h1 className="font-extrabold text-[32px]">Create</h1>
+          <p className="mt-2 text-gray-500 text-[14px] max-w-[500px]">Create imaginative and visually stunning images generated through DALL-E AI and share them with the community</p>
         </div>
 
         <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
@@ -77,6 +78,23 @@ const CreatePost = (props: Props) => {
                 </div>
               )}
             </div>
+
+            <div className='mt-5 flex gap-5'>
+              <button type="button" onClick={generateImg} className='text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
+                {generatingImg ? 'Generating...' : 'Generate'}
+              </button>
+            </div>
+
+            <div className="mt-10">
+              <p className="mt-2 text-gray-300 text-[14px]">Once you have created the image you want, you can share it with others in the community.</p>
+              <button
+                type="submit"
+                className="mt-3 text-white bg-indigo-500 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                {loading ? 'Sharing...' : 'Share with the Community'}
+              </button>
+            </div>
+
           </div>
         </form>
       </div>
