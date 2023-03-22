@@ -10,7 +10,7 @@ const Header = (props: Props) => {
     <div className="w-full flex justify-between items-center bg-white sm:px-8 px-4 py-4 border-b border-b-[#e6ebf4]">
       <Link href="/">
         <Image
-          className="w-20 object-contain"
+          className="w-28 object-contain"
           src={logo}
           alt="logo"
           width={50}

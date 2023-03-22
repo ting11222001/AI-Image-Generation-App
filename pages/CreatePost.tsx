@@ -49,6 +49,8 @@ const CreatePost = (props: Props) => {
               isSurpriseMe
               handleSurpriseMe={handleSurpriseMe}
             />
+
+            <div></div>
           </div>
         </form>
       </div>
