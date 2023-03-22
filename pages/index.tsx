@@ -18,6 +18,7 @@ export default function Home() {
             blurDataURL="../public/vercel.svg"
           />
         </Link>
+        <Link href="/CreatePost" className="font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md">Create</Link>
       </div>
     </>
   )
