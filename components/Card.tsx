@@ -1,6 +1,13 @@
-import React from 'react'
+import React from 'react';
+import download from '../public/download.png';
+import { downloadImage } from '../utils';
 
-type Props = {}
+type Props = {
+  _id: string;
+  name: string;
+  prompt: string;
+  photo: string;
+}
 
 const Card = (props: Props) => {
   return (

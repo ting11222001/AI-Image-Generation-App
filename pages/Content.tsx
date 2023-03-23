@@ -4,7 +4,7 @@ import Loader from "@/components/Loader";
 import Card from "@/components/Card";
 
 type Props = {
-  data?: Array<any>;
+  data?: Array<any> | null;
   title?: string;
 }
 
@@ -32,6 +32,40 @@ const Content = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
   const [searchText, setSearchText] = useState('');
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/post', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        console.log("response: ", response);
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log("result: ", result);
+          console.log("result.data.reverse: ", result.data.reverse());
+
+          setAllPosts(result.data.reverse());
+        }
+
+      } catch (error) {
+        alert(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPosts();
+  }, [])
+
+
+
   return (
     <div className='max-w-7xl mx-auto sm:p-8 px-4 py-8 w-full h-screen'>
       <div>
@@ -60,7 +94,7 @@ const Content = (props: Props) => {
                 />
               ) : (
                 <RenderCards
-                  data={[]}
+                  data={allPosts}
                   title="No posts found"
                 />
               )}
