@@ -5,10 +5,14 @@ import { getRandomPrompt } from '../utils';
 import FormField from "@/components/FormField";
 import Loader from "@/components/Loader";
 import Image from "next/image";
+import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router'
 
 type Props = {}
 
 const CreatePost = (props: Props) => {
+  const navigate = useRouter();
+
   const [form, setForm] = useState({
     name: '',
     prompt: '',
@@ -17,14 +21,43 @@ const CreatePost = (props: Props) => {
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => { }
+  const handleSubmit = async (e: React.ChangeEvent<any>) => {
+    console.log('click handleSubmit!');
+    e.preventDefault();
+
+    if (form.prompt && form.photo) {
+      setLoading(true);
+
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/post', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(form),
+        })
+
+        await response.json();
+        navigate.push('/');
+      } catch (error) {
+        alert(error);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert('Please enter a prompt and generate an image');
+    }
+  }
+
   const handleChange = (e: React.ChangeEvent<any>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
+
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(form.prompt);
     setForm({ ...form, prompt: randomPrompt })
   }
+
   const generateImg = async () => {
     console.log('click generateImg!');
     if (form.prompt) {
@@ -111,7 +144,7 @@ const CreatePost = (props: Props) => {
               <button type="button" onClick={generateImg} className='text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2 text-center'>
                 {generatingImg ? 'Generating...' : 'Generate'}
               </button>
-              <p className="text-gray-300 text-[14px] mt-2">This may take awhile.</p>
+              <p className="text-gray-300 text-[14px] mt-2">This may take a while.</p>
             </div>
 
             <div className="mt-2">
