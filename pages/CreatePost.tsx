@@ -5,7 +5,6 @@ import { getRandomPrompt } from '../utils';
 import FormField from "@/components/FormField";
 import Loader from "@/components/Loader";
 import Image from "next/image";
-import { useNavigate } from 'react-router-dom';
 import { useRouter } from 'next/router'
 
 type Props = {}
