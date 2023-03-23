@@ -18,14 +18,37 @@ const CreatePost = (props: Props) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => { }
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<any>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt(form.prompt);
     setForm({ ...form, prompt: randomPrompt })
   }
-  const generateImg = () => { }
+  const generateImg = async () => {
+    console.log('click generateImg!');
+    if (form.prompt) {
+      try {
+        setGeneratingImg(true);
+        const response = await fetch('http://localhost:8080/api/v1/dalle',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ prompt: form.prompt }),
+          });
+        const data = await response.json();
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+      } catch (error) {
+        alert(error);
+      } finally {
+        setGeneratingImg(false);
+      }
+    } else {
+      alert('Please provide proper prompt');
+    }
+  }
 
   return (
     <>
@@ -84,20 +107,21 @@ const CreatePost = (props: Props) => {
               )}
             </div>
 
-            <div className='mt-2 flex gap-5'>
+            <div className='mt-2'>
               <button type="button" onClick={generateImg} className='text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2 text-center'>
                 {generatingImg ? 'Generating...' : 'Generate'}
               </button>
+              <p className="text-gray-300 text-[14px] mt-2">This may take awhile.</p>
             </div>
 
             <div className="mt-2">
-              <p className="text-gray-300 text-[14px]">Once you have created the image you want, you can share it with others in the community.</p>
               <button
                 type="submit"
                 className="mt-3 text-white bg-indigo-500 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
               >
                 {loading ? 'Sharing...' : 'Share with the Community'}
               </button>
+              <p className="text-gray-300 text-[14px] mt-2">Once you have created the image you want, you can share it with others in the community.</p>
             </div>
 
           </div>
