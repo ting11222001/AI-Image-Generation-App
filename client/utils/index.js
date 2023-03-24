@@ -14,3 +14,6 @@ export function getRandomPrompt(prompt) {
 export async function downloadImage(_id, photo) {
   FileSaver.saveAs(photo, `download-${_id}.jpg`);
 }
+
+// export const BASEURL = "http://localhost:8080"; // LOCAL
+export const BASEURL = "https://ai-image-generation-app-amber.vercel.app"; // VERCEL

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import preview from '../public/preview.png';
-import { getRandomPrompt } from '../utils';
+import { getRandomPrompt, BASEURL } from '../utils';
 import FormField from "../components/FormField";
 import Loader from "../components/Loader";
 import Image from "next/image";
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 type Props = {}
 
@@ -28,7 +28,7 @@ const CreatePost = (props: Props) => {
       setLoading(true);
 
       try {
-        const response = await fetch('http://localhost:8080/api/v1/post', {
+        const response = await fetch(`${BASEURL}/api/v1/post`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ const CreatePost = (props: Props) => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch('http://localhost:8080/api/v1/dalle',
+        const response = await fetch(`${BASEURL}/api/v1/dalle`,
           {
             method: 'POST',
             headers: {
